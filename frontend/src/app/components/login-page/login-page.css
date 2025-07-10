@@ -1,0 +1,35 @@
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2e7d32; /* verde escuro e moderno */
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #4caf50; /* verde claro */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h2 small {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+.login-info {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+  margin-top: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
