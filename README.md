@@ -19,6 +19,11 @@ to-do-app/
 
 ---
 
+## Estrutura do banco de dados
+![EER Diagram](database/eer-diagram.png)
+
+---
+
 ## Para executar o projeto localmente
 
 ### Pré-requisitos
