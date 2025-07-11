@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  email VARCHAR(100) UNIQUE,
+  nome VARCHAR(100) UNIQUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 
@@ -22,3 +22,50 @@ CREATE TABLE IF NOT EXISTS tasks (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE = InnoDB;
+
+
+
+-- Usuário administrador
+INSERT INTO users (username, password, nome)
+VALUES (
+  'admin',
+  'admin123',
+  'Admnistrador Essentia'
+);
+
+-- Recupera o ID do usuário recém-inserido
+SET @user_id = LAST_INSERT_ID();
+
+-- Tarefas exemplo para o admin
+INSERT INTO tasks (title, description, user_id, done)
+VALUES
+(
+  'Criar nova tarefa',
+  'Clique no botão "Nova Tarefa" e preencha o título e a descrição para começar.',
+  @user_id,
+  FALSE
+),
+(
+  'Marcar tarefa como concluída',
+  'Experimente clicar no checkbox ao lado de uma tarefa para marcá-la como feita.',
+  @user_id,
+  FALSE
+),
+(
+  'Editar uma tarefa existente',
+  'Clique no ícone de lápis ao lado da tarefa para modificar seus detalhes.',
+  @user_id,
+  FALSE
+),
+(
+  'Excluir uma tarefa',
+  'Clique no ícone de lixeira para remover tarefas que não são mais necessárias.',
+  @user_id,
+  FALSE
+),
+(
+  'Parabéns!',
+  'Você está pronto para usar seu gerenciador de tarefas. Boa sorte!',
+  @user_id,
+  FALSE
+);
