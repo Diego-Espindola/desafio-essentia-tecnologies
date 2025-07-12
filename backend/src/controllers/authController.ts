@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { db } from '../config/database';
-import mysql from 'mysql2';
+import { UserLoginInput } from '../types/user';
+import { sanitizeUser } from '../utils/sanitize';
 
 export const login = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password }: UserLoginInput = req.body;
 
   try {
     const [rows]: any = await db.query(
@@ -15,16 +16,13 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ message: 'Credenciais inválidas' });
     }
 
-    const user = rows[0];
+    const rawUser = rows[0];
+    const user = sanitizeUser(rawUser);
 
-    // Vai retornar o nome, username e ID
+    // Vai retornar ID, username e nome.
     res.json({
       message: 'Login realizado com sucesso',
-      user: {
-        id: user.id,
-        username: user.username,
-        nome: user.nome
-      }
+      user
     });
   } catch (error) {
     res.status(500).json({ message: 'Erro no servidor' });
