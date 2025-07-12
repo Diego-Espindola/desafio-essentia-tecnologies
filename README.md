@@ -7,14 +7,16 @@ Uma aplicação web simples e eficiente para gerenciamento de tarefas diárias, 
 - **Frontend:** Angular
 - **Backend:** Node.js + Express + TypeScript
 - **Banco de Dados:** MySQL
-- **Autenticação:** JWT (JSON Web Token)
+- **Autenticação:** JWT (JSON Web Token) - Melhoria
 
 ---
 
 ## 📁 Estrutura de Pastas
 
 to-do-app/
+
 ├── frontend/ → Aplicação Angular
+
 ├── backend/ → API Node.js com TypeScript
 
 ---
@@ -52,9 +54,14 @@ npm install
 npm run dev
 ```
 
+## Setup
+ Crie o arquivo `.env` com as variáveis de conexão com o MySQL
+
 # Funcionalidades
--- Autenticação JWT
+-- Autenticação JWT (upgrade futuro)
+
 -- CRUD de tarefas
+
 -- Cada usuário visualiza apenas suas tarefas
 
 # Testes
