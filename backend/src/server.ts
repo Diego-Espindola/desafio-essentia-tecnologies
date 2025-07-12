@@ -1,12 +1,14 @@
 import express from 'express';
 import taskRoutes from './routes/taskRoutes';
 import authRoutes from './routes/authRoutes';
+import cors from 'cors';
 import { db } from './config/database';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 app.use('/api', taskRoutes);
 app.use('/auth', authRoutes);
 
