@@ -18,8 +18,12 @@
     <button type="submit" class="btn btn-success">Adicionar Tarefa</button>
   </form>
 
+  <hr> <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
   <!-- LISTA DE TAREFAS -->
-  <div *ngIf="tasks.length > 0; else noTasks">
+  <div *ngIf="!errorMessage && tasks.length > 0; else noTasks">
     <ul class="task-list">
       <li *ngFor="let task of tasks" class="task-item" [class.done]="task.done">
         <div class="task-text">
@@ -35,7 +39,11 @@
   </div>
 
   <ng-template #noTasks>
-    <p class="no-tasks-msg">Você ainda não tem tarefas cadastradas.</p>
+    <p *ngIf="!errorMessage" class="no-tasks-msg">Você ainda não tem tarefas cadastradas.</p>
+  </ng-template>
+
+  <ng-template #conditionalMessage>
+    <p *ngIf="!errorMessage && tasks.length === 0" class="error-msg">Erro ao carregar tarefas. Verifique seu banco de dados e tente novamente.</p>
   </ng-template>
 
 </div>

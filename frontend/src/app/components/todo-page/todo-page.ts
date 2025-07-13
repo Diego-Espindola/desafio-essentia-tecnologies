@@ -15,6 +15,7 @@ import { enviroment } from '../../../enviroments/enviroment';
 export class TodoPage implements OnInit {
   user: any = null;
   tasks: any[] = [];
+  errorMessage: string | null = null;
 
   // Novas tarefas - campos do formulário
   newTask = {
@@ -42,10 +43,13 @@ export class TodoPage implements OnInit {
     this.http.get<any[]>(`${enviroment.apiUrl}/users/${this.user.id}/tasks`)
       .subscribe({
         next: (tasks) => {
-          this.tasks = tasks;
+            this.tasks = tasks;
+            this.errorMessage = null; // Tasks vieram do banco
         },
         error: (err) => {
           console.error('Erro ao buscar tarefas:', err);
+          this.tasks = ['',''];
+          this.errorMessage = 'Erro ao carregar tarefas. Verifique seu banco de dados e tente novamente.'; // Mensagem de erro genérica
         }
       });
   }
