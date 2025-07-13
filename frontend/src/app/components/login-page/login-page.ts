@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { enviroment } from '../../../enviroments/enviroment';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -15,7 +16,11 @@ export class LoginPage {
   username = '';
   password = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+    constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   login() {
     const body = {
@@ -26,8 +31,9 @@ export class LoginPage {
     this.http.post<any>(`${enviroment.apiUrlLogin}/login`, body).subscribe({
       next: (response) => {
         console.log('Login OK:', response);
-        // Salvar o user no localStorage ou service
-        localStorage.setItem('user', JSON.stringify(response.user));
+        // Salvar o user e token no localStorage
+        this.userService.setSession(response.user, response.token);
+        
         this.router.navigate(['/todoApp']);
       },
       error: (err) => {
