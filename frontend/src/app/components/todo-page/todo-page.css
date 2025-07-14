@@ -140,3 +140,19 @@ h2 small {
   border-radius: 4px; /* Slightly rounded corners */
   font-weight: bold;
 }
+
+.logout-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+}
+
+.btn-logout {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { enviroment } from '../../../enviroments/enviroment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-page',
@@ -26,7 +27,8 @@ export class TodoPage implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -37,6 +39,11 @@ export class TodoPage implements OnInit {
     } else {
       console.warn('Usuário não encontrado. Redirecione para login se necessário.');
     }
+  }
+
+  logout(){
+    this.userService.clearUser();
+    this.router.navigate(['/']);
   }
 
   loadTasks() {
@@ -87,4 +94,5 @@ export class TodoPage implements OnInit {
       error: (err) => console.error('Erro ao excluir tarefa:', err)
     });
   }
+
 }
