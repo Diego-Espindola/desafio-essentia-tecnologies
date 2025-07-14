@@ -31,6 +31,7 @@ export const login = async (req: Request, res: Response) => {
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
     console.log('JWT_EXPIRES_IN:', process.env.JWT_EXPIRES_IN);
 
+    res.set('Cache-Control', 'no-store');
     // Vai retornar ID, username e nome.
     res.json({
       message: 'Login realizado com sucesso',
