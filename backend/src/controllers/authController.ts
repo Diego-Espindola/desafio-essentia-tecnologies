@@ -7,9 +7,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
-if (!JWT_SECRET || !JWT_EXPIRES_IN) {
+const envIsEmpty: string = "vazio"
+
+const JWT_SECRET: string = process.env.JWT_SECRET || envIsEmpty;
+const JWT_EXPIRES_IN: string = process.env.JWT_EXPIRES_IN || envIsEmpty;
+if (JWT_SECRET == envIsEmpty || JWT_EXPIRES_IN == envIsEmpty) {
   throw new Error('JWT_SECRET ou JWT_EXPIRES_IN não definido nas variáveis de ambiente.');
 }
 
@@ -28,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
 
     const rawUser = rows[0];
     const user = sanitizeUser(rawUser);
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] });
     console.log('JWT_EXPIRES_IN:', process.env.JWT_EXPIRES_IN);
 
     res.set('Cache-Control', 'no-store');
