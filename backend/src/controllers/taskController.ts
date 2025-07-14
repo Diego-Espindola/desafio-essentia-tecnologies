@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
+import { AuthenticatedRequest } from '../middleware/authMiddleware';
 import * as taskModel from '../models/taskModel';
 
-export const getTasksByUser = async (req: Request, res: Response) => {
-  const userId = Number(req.params.userId);
+export const getTasksByUser = async (req: AuthenticatedRequest, res: Response) => {
+  const userId = Number(req.userId);
 
   if (isNaN(userId)) {
-    return res.status(400).json({ error: 'ID de usuário inválido' });
+    return res.status(400).json({ error: 'Token Inválido' });
   }
 
   try {

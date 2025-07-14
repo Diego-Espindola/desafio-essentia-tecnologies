@@ -6,7 +6,7 @@ const router = Router();
 
 router.use(authenticateToken);
 
-router.get('/users/:userId/tasks', taskController.getTasksByUser);
+router.get('/tasks', taskController.getTasksByUser);
 router.post('/tasks', taskController.createTask);
 router.put('/tasks/:id', taskController.updateTaskStatus);
 router.delete('/tasks/:id', taskController.deleteTask);
