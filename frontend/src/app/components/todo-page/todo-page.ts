@@ -40,7 +40,7 @@ export class TodoPage implements OnInit {
   }
 
   loadTasks() {
-    this.http.get<any[]>(`${enviroment.apiUrl}/users/${this.user.id}/tasks`)
+    this.http.get<any[]>(`${enviroment.apiUrlTasks}`)
       .subscribe({
         next: (tasks) => {
             this.tasks = tasks;
@@ -61,7 +61,7 @@ export class TodoPage implements OnInit {
       user_id: this.user.id
     };
 
-    this.http.post(`${enviroment.apiUrl}/tasks`, taskData).subscribe({
+    this.http.post(`${enviroment.apiUrlTasks}`, taskData).subscribe({
       next: (res) => {
         this.newTask.title = '';
         this.newTask.description = '';
@@ -75,14 +75,14 @@ export class TodoPage implements OnInit {
 
   markAsDone(task: any) {
     task.done = !task.done
-    this.http.put(`${enviroment.apiUrl}/tasks/${task.id}`, { done: task.done }).subscribe({
+    this.http.put(`${enviroment.apiUrlTasks}/${task.id}`, { done: task.done }).subscribe({
       next: () => this.loadTasks(),
       error: (err) => console.error('Erro ao marcar como feita:', err)
     });
   }
 
   deleteTask(task: any) {
-    this.http.delete(`${enviroment.apiUrl}/tasks/${task.id}`).subscribe({
+    this.http.delete(`${enviroment.apiUrlTasks}/${task.id}`).subscribe({
       next: () => this.loadTasks(),
       error: (err) => console.error('Erro ao excluir tarefa:', err)
     });
