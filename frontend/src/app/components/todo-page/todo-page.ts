@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { enviroment } from '../../../enviroments/enviroment';
 import { Router } from '@angular/router';
@@ -61,7 +61,12 @@ export class TodoPage implements OnInit {
       });
   }
 
-  addTask() {
+  addTask(form: NgForm) {
+    
+    if (form.invalid) {
+      return;
+    }
+
     const taskData = {
       title: this.newTask.title,
       description: this.newTask.description,
@@ -80,18 +85,59 @@ export class TodoPage implements OnInit {
     });
   }
 
+    
+  deleteTask(task: any) {
+    this.http.delete(`${enviroment.apiUrlTasks}/${task.id}`).subscribe({
+      next: () => this.loadTasks(),
+      error: (err) => console.error('Erro ao excluir tarefa:', err)
+    });
+  }
+
   markAsDone(task: any) {
     task.done = !task.done
-    this.http.put(`${enviroment.apiUrlTasks}/${task.id}`, { done: task.done }).subscribe({
+    this.http.put(`${enviroment.apiUrlTasks}/status/${task.id}`, { done: task.done }).subscribe({
       next: () => this.loadTasks(),
       error: (err) => console.error('Erro ao marcar como feita:', err)
     });
   }
 
-  deleteTask(task: any) {
-    this.http.delete(`${enviroment.apiUrlTasks}/${task.id}`).subscribe({
-      next: () => this.loadTasks(),
-      error: (err) => console.error('Erro ao excluir tarefa:', err)
+  // Variáveis para edição inline
+  editTaskId: number | null = null;
+  editTaskTitle: string = '';
+  editTaskDescription: string = '';
+
+  // Ao clicar em "Editar"
+  startEdit(task: any) {
+    this.editTaskId = task.id;
+    this.editTaskTitle = task.title;
+    this.editTaskDescription = task.description || '';
+  }
+
+  // Cancelar edição
+  cancelEdit() {
+    this.editTaskId = null;
+    this.editTaskTitle = '';
+    this.editTaskDescription = '';
+  }
+
+  // Salvar edição e enviar PUT para backend
+  saveEdit(task: any) {
+
+    const updatedTask = {
+      ...task,
+      title: this.editTaskTitle.trim(),
+      description: this.editTaskDescription.trim()
+    };
+
+    this.http.put(`${enviroment.apiUrlTasks}/${task.id}`, updatedTask).subscribe({
+      next: () => {
+        this.editTaskId = null;
+        this.loadTasks(); // Atualiza lista após salvar
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar tarefa:', err);
+        alert('Erro ao atualizar tarefa');
+      }
     });
   }
 

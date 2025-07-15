@@ -18,6 +18,14 @@ export const updateTaskStatus = async (id: number, done: boolean): Promise<void>
   await db.query('UPDATE tasks SET done = ? WHERE id = ?', [done, id]);
 };
 
+export const updateTask = async (id: number, userId: number, task: Partial<Task>): Promise<void> => {
+  const { title, description } = task;
+  await db.query(
+    'UPDATE tasks SET title = ?, description = ? WHERE id = ? AND user_id = ?',
+    [title, description, id, userId]
+  );
+};
+
 export const deleteTask = async (id: number): Promise<void> => {
   await db.query('DELETE FROM tasks WHERE id = ?', [id]);
 };

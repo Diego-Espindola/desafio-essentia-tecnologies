@@ -40,6 +40,24 @@ export const updateTaskStatus = async (req: Request, res: Response) => {
   }
 };
 
+export const editTask = async (req: AuthenticatedRequest, res: Response) => {
+  const { id } = req.params;
+  const { title, description } = req.body;
+  const userId = Number(req.userId);
+
+  if (!title || title.trim() === '') {
+    return res.status(400).json({ error: 'Título é obrigatório' });
+  }
+
+  try {
+    await taskModel.updateTask(Number(id), userId, { title, description });
+    res.set('Cache-Control', 'no-store');
+    res.json({ message: 'Tarefa editada com sucesso' });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao editar tarefa' });
+  }
+};
+
 export const deleteTask = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {

@@ -156,3 +156,7 @@ h2 small {
   font-weight: bold;
   cursor: pointer;
 }
+
+.required {
+  color: red;
+}

@@ -2,17 +2,20 @@
 <h2>Aplicativo To-Do <small>by Diego Espindola</small></h2>
 
 
-<div class="logout-container">
+<header class="logout-container">
   <button class="btn btn-logout" (click)="logout()">Deslogar</button>
-</div>
+</header>
 
 <div class="task-container">
 
   <!-- FORMULÁRIO DE NOVA TAREFA -->
-  <form (ngSubmit)="addTask()" class="new-task-form">
+  <form (ngSubmit)="addTask(form)" #form="ngForm" class="new-task-form" >
     <div class="form-group">
-      <label for="titulo">Título</label>
-      <input type="text" id="titulo" [(ngModel)]="newTask.title" name="title" required placeholder="Título da tarefa" />
+      <label for="titulo">Título <span class="required">*</span></label>
+      <input type="text" id="titulo" [(ngModel)]="newTask.title" name="title" required placeholder="Título da tarefa" #title="ngModel"/>
+      <div *ngIf="title.invalid && title.touched" class="error-msg">
+        O título é obrigatório.
+      </div>
     </div>
 
     <div class="form-group">
@@ -20,7 +23,15 @@
       <textarea id="descricao" [(ngModel)]="newTask.description" name="description" placeholder="Descrição da tarefa"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-success">Adicionar Tarefa</button>
+    <div [attr.title]="form.invalid ? 'Preencha todos os campos obrigatórios' : null">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="form.invalid"
+      >
+        Adicionar Tarefa
+      </button>
+    </div>
   </form>
 
   <hr> <div *ngIf="errorMessage" class="error-message">
@@ -29,6 +40,43 @@
 
   <!-- LISTA DE TAREFAS -->
   <div *ngIf="!errorMessage && tasks.length > 0; else noTasks">
+    <ul class="task-list">
+      <li *ngFor="let task of tasks" class="task-item" [class.done]="task.done">
+
+        <div *ngIf="editTaskId !== task.id; else editForm" class="task-text">
+          <strong>{{ task.title }}</strong><br />
+          <small>{{ task.description }}</small>
+        </div>
+
+        <ng-template #editForm>
+          <form (ngSubmit)="saveEdit(task)" #editForm="ngForm" class="edit-task-form">
+            <input
+              type="text"
+              [(ngModel)]="editTaskTitle"
+              name="editTitle"
+              required
+              placeholder="Título"
+              #editTitle="ngModel"
+            />
+            <textarea
+              [(ngModel)]="editTaskDescription"
+              name="editDescription"
+              placeholder="Descrição"
+            ></textarea>
+            <button type="submit" [disabled]="editForm.invalid">Salvar</button>
+            <button type="button" (click)="cancelEdit()">Cancelar</button>
+          </form>
+        </ng-template>
+
+        <div class="task-actions" *ngIf="editTaskId !== task.id">
+          <button class="btn btn-done" (click)="markAsDone(task)">✔ Feito</button>
+          <button class="btn btn-delete" (click)="deleteTask(task)">🗑 Excluir</button>
+          <button class="btn btn-edit" (click)="startEdit(task)">✏ Editar</button>
+        </div>
+
+      </li>
+    </ul>
+    <!--
     <ul class="task-list">
       <li *ngFor="let task of tasks" class="task-item" [class.done]="task.done">
         <div class="task-text">
@@ -41,6 +89,7 @@
         </div>
       </li>
     </ul>
+    -->
   </div>
 
   <ng-template #noTasks>
