@@ -8,6 +8,7 @@
 
 <div class="task-container">
 
+  <p class="welcome-msg">Olá, <strong>{{ user?.nome }}</strong>!  o que você precisa fazer hoje?</p>
   <!-- FORMULÁRIO DE NOVA TAREFA -->
   <form (ngSubmit)="addTask(form)" #form="ngForm" class="new-task-form" >
     <div class="form-group">

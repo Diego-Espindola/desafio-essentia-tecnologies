@@ -82,7 +82,8 @@ h2 small {
 }
 
 .task-text {
-  max-width: 60%;
+  width: 60%;
+  min-width: 60%;
 }
 
 .task-actions {
@@ -104,10 +105,39 @@ h2 small {
   font-weight: bold;
 }
 
+.btn-done:hover {
+  background-color: #19761e;
+  transform: translateY(-1px);
+  transition: background-color 0.3s ease;
+}
+
 .btn-delete {
   background-color: #e53935;
   color: white;
   font-weight: bold;
+}
+.btn-delete:hover {
+  background-color: #a70b08;
+  transform: translateY(-1px);
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+  background-color: rgba(255, 160, 0, 0.7);   /* laranja suave, 70% opaco */
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: rgba(255, 160, 0, 0.9);   /* hover mais “cheio” */
+  transform: translateY(-1px);
+  transition: background-color 0.3s ease;
 }
 
 .no-tasks-msg {
@@ -159,4 +189,10 @@ h2 small {
 
 .required {
   color: red;
+}
+
+.welcome-msg {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #333;
 }
