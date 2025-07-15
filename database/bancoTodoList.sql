@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- Tarefas
 CREATE TABLE IF NOT EXISTS tasks (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255),
+  title VARCHAR(255) NOT NULL,
   description TEXT,
   done BOOLEAN DEFAULT FALSE,
   user_id INT,
@@ -41,25 +41,25 @@ INSERT INTO tasks (title, description, user_id, done)
 VALUES
 (
   'Criar nova tarefa',
-  'Clique no botão "Nova Tarefa" e preencha o título e a descrição para começar.',
+  'Preencha o título e a descrição, então clique em "Adicionar Tarefa" .',
   @user_id,
   FALSE
 ),
 (
   'Marcar tarefa como concluída',
-  'Experimente clicar no checkbox ao lado de uma tarefa para marcá-la como feita.',
-  @user_id,
-  FALSE
-),
-(
-  'Editar uma tarefa existente',
-  'Clique no ícone de lápis ao lado da tarefa para modificar seus detalhes.',
+  'Experimente clicar no Check ao lado de uma tarefa para marcá-la como feita.',
   @user_id,
   FALSE
 ),
 (
   'Excluir uma tarefa',
   'Clique no ícone de lixeira para remover tarefas que não são mais necessárias.',
+  @user_id,
+  FALSE
+),
+(
+  'Editar uma tarefa existente',
+  'Clique no ícone de lápis ao lado da tarefa para modificar seus detalhes.',
   @user_id,
   FALSE
 ),
