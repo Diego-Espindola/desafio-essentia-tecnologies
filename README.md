@@ -2,7 +2,7 @@
 
 Uma aplicação web simples e eficiente para gerenciamento de tarefas diárias, com autenticação de usuários.
 
-## 🧰 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Frontend:** Angular
 - **Backend:** Node.js + Express + TypeScript
@@ -11,7 +11,7 @@ Uma aplicação web simples e eficiente para gerenciamento de tarefas diárias, 
 
 ---
 
-## 📁 Estrutura de Pastas
+## Estrutura de Pastas
 
 to-do-app/
 
@@ -30,10 +30,27 @@ to-do-app/
 
 ### Pré-requisitos
 
-- Node.js instalado (v16+ recomendado)
+- Node.js instalado (v16+ recomendado) - `https://nodejs.org/pt/download`
 - Angular CLI (`npm install -g @angular/cli`)
 - MySQL instalado e rodando
 
+## Setup
+  Crie um arquivo chamado .env na pasta ./backend do projeto com as variáveis de ambiente necessárias:
+
+
+```env
+# Configurações do Banco de Dados
+DB_HOST=localhost
+DB_USER=meu_usuario
+DB_PASSWORD=minha_senha_banco
+DB_NAME=todolist
+
+# Configurações do JWT (JSON Web Token)
+JWT_SECRET=minha_chave_secreta_super_segura_aleatoria
+JWT_EXPIRES_IN=8h
+```
+
+Crie o banco de dados com o SQL contido na pasta ./database
 ---
 
 ### Passos para rodar o Frontend
@@ -54,18 +71,22 @@ npm install
 npm run dev
 ```
 
-## Setup
- Crie o arquivo `.env` com as variáveis de conexão com o MySQL
+### O PROGRAMA ESTÁ PRONTO PARA USO ###
+
+------
+
 
 # Funcionalidades
--- Autenticação JWT (upgrade futuro)
+-- Autenticação JWT e senhas criptografadas
 
 -- CRUD de tarefas
 
 -- Cada usuário visualiza apenas suas tarefas
 
+# Melhorias futuras possíveis
+-- Adicionar um banco MongoDB para permitir anexar documentos às tarefas
+
+-- Permitir múltiplos comentários para uma tarefa utilizando um banco de dados noSql
+
 # Testes
 Os testes podem ser feitos manualmente no navegador e via Postman/Insomnia.
-
-📌 Observações
-O projeto está em desenvolvimento.
