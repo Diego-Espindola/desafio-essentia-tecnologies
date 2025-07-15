@@ -88,5 +88,15 @@ npm run dev
 
 -- Permitir múltiplos comentários para uma tarefa utilizando um banco de dados noSql
 
+# Criação de usuários
+-- Este projeto possui um script auxiliar para criar um usuário diretamente no banco de dados com a senha já codificada.
+
+### Local do script
+
+```bash
+backend/scripts/create-user.ts
+```
+Orientações de execução estão dentro do script, preencha as constantes username e password.
+
 # Testes
 Os testes podem ser feitos manualmente no navegador e via Postman/Insomnia.
