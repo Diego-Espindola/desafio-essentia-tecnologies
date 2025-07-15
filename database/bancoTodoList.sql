@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  nome VARCHAR(100) UNIQUE,
+  nome VARCHAR(100) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 INSERT INTO users (username, password, nome)
 VALUES (
   'admin',
-  'admin123',
+  '$2b$10$uU2xthVyhOjbEvDwaGp2j.fdfusoAhdNrsRtsf45oVJZNjkqY1B4S',
   'Admnistrador Essentia'
 );
 
