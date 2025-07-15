@@ -16,6 +16,12 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
         })
         : req;
 
+    // Ignorar jwt em requisições de login
+    const isAuthRoute = req.url.includes('/auth/login');
+    if (isAuthRoute) {
+        return next(req); // não adiciona o token
+    }
+
     return next(cloned).pipe(
         catchError((error) => {
         if (error.status === 401 || error.status === 403) {
